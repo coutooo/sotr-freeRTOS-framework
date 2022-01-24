@@ -31,143 +31,77 @@
 
 /* App includes */
 #include "../UART/uart.h"
-//#include <semphr.h>
-#include <queue.h>
-
-#define SYSCLK  80000000L // System clock frequency, in Hz
-#define PBCLOCK 40000000L // Peripheral Bus Clock frequency, in Hz
-
 
 /* Set the tasks' period (in system ticks) */
-#define ACQ_PERIOD_MS           ( 100 / portTICK_RATE_MS )
+#define LED_FLASH_PERIOD_MS 	( 250 / portTICK_RATE_MS ) // 
+#define INTERF_PERIOD_MS 	( 3000 / portTICK_RATE_MS )
 
 /* Control the load task execution time (# of iterations)*/
 /* Each unit corresponds to approx 50 ms*/
 #define INTERF_WORKLOAD          ( 20)
 
 /* Priorities of the demo application tasks (high numb. -> high prio.) */
-#define OUT_PRIORITY        ( tskIDLE_PRIORITY + 1 )                        
-#define PROC_PRIORITY	    ( tskIDLE_PRIORITY + 2 )
-#define ACQ_PRIORITY        ( tskIDLE_PRIORITY + 3 )
+#define PRIORITY_A      ( tskIDLE_PRIORITY + 1 )                        
+#define PRIORITY_B      ( tskIDLE_PRIORITY + 2 )
+#define PRIORITY_C      ( tskIDLE_PRIORITY + 3 )
+#define PRIORITY_D      ( tskIDLE_PRIORITY + 1 )                        
+#define PRIORITY_E	    ( tskIDLE_PRIORITY + 2 )
+#define PRIORITY_F      ( tskIDLE_PRIORITY + 3 )
+ 
 
-
-static QueueHandle_t xQueue1;
-static QueueHandle_t xQueue2;
-
-struct AMessage
-{
-   char ucMessageID;
-   char ucData[ 20 ];
-} xMessage;
-
-//Global variables
-float result1;
-int result2; 
 
 /*
  * Prototypes and tasks
  */
 
-void taskACQ(void *pvParam)                 
+void pvLedFlash(void *pvParam)                  // TaskHandle_1
 {
-    
+    int iTaskTicks = 0;
+    uint8_t mesg[80];
     TickType_t xLastWakeTime;
     xLastWakeTime = xTaskGetTickCount();
-    const TickType_t freq = pdMS_TO_TICKS(ACQ_PERIOD_MS); 
+    const TickType_t freq = pdMS_TO_TICKS(LED_FLASH_PERIOD_MS);
     
-    // Variable declarations;
-    float res; // Sampled voltage
-
-    
-    // Welcome message
-    //printf("Prints voltage at AN0 (Pin 54 of ChipKIT)\n\r");
-    
-    if(xQueue1 != 0){
-        // Main loop
-        while (1) {
+    for(;;) {
         
-            vTaskDelayUntil(&xLastWakeTime, freq);
-
-            // Get one sample
-            IFS1bits.AD1IF = 0; // Reset interrupt flag
-            AD1CON1bits.ASAM = 1; // Start conversion
-            while (IFS1bits.AD1IF == 0); // Wait fo EOC
-
-            // Convert to 0..3.3V 
-            res = (ADC1BUF0 * 3.3) / 1023;
-            
-            //Convert to temperature
-            result1 = (res*100)/3.3;
-
-            // Output result
-            printf("Voltage: %f\n\r",result1);
-            //printf("Temp:%f",(res-2.7315)/.01); // For a LM335 directly connected
-            
-            xQueueSend(xQueue1, &result1, 100);
-        }
-
+        PORTAbits.RA3 = !PORTAbits.RA3;
+        sprintf(mesg,"Task LedFlash (job %d)\n\r",iTaskTicks++);
+        PrintStr(mesg);
+                
+        vTaskDelayUntil( &xLastWakeTime, freq);
     }
     
 }
 
-void taskProc(void *pvParam)                
+void pvInterfTask(void *pvParam)                // TaskHandle_2 -- maior priority
 {
-    double samples[5] = {0,0,0,0,0};
-    double sum = 0;
-    int avg = 0;
     
-    if (xQueue1 != 0 && xQueue2 != 0){
-        for(;;) {
-            if (xQueueReceive(xQueue1, &samples, 100 ) == pdTRUE) {
-                
-                for(int i = 1; i < 6; i++)
-                {
-                    samples[i] = samples[i-1];
-                }
-                       
-                samples[0] = result1;
-                
-                for(int i = 0; i < 5; i++)
-                {
-                    sum += samples[i];
-                }
-                
-                avg = (int) sum / 5.0;
-                
-                result2 = avg;
-                
-                sum = 0;
-                
-                xQueueSend(xQueue2, &result2, 100);
-                
-            } else {
-                
-            }     
-            
-        }
-    }       
+    volatile uint32_t counter1, counter2;
+    float x=100.1;
     
+    TickType_t xLastWakeTime;
+    xLastWakeTime = xTaskGetTickCount();
+    const TickType_t freq = pdMS_TO_TICKS(INTERF_PERIOD_MS);
+   
+    for(;;) {
+        
+        PORTCbits.RC1 = 1;        
+        PrintStr("Interfering task release ...");
+        
+        /* Workload. In this case just spend CPU time ...*/        
+        for(counter1=0; counter1 < INTERF_WORKLOAD; counter1++ )
+            for(counter2=0; counter2 < 0x10200; counter2++ )
+            x=x/3;                
+
+        PrintStr("and termination!\n\r");
+        PORTCbits.RC1 = 0;        
+        
+        vTaskDelayUntil( &xLastWakeTime, freq);
+    }
     
 }
 
-void taskOut(void *pvParam)
-{
-    uint8_t message[80];
-    
-    if (xQueue2 != 0 ){
-        for(;;) {
-            if (xQueueReceive(xQueue2, &message, 100) == pdTRUE) {
-                sprintf(message, "Average: %d\n", result2);
-                PrintStr(message);
-                
-            } else {
-                
-            }     
-            
-        }
-    }   
-    
-}
+
 
 /*
  * Create the demo tasks then start the scheduler.
@@ -182,39 +116,21 @@ int mainTaskManager( void )
 
      __XC_UART = 1; /* Redirect stdin/stdout/stderr to UART1*/
      
-     // Disable JTAG interface as it uses a few ADC ports
-    DDPCONbits.JTAGEN = 0;
-    
-    // Initialize ADC module
-    // Polling mode, AN0 as input
-    // Generic part
-    AD1CON1bits.SSRC = 7; // Internal counter ends sampling and starts conversion
-    AD1CON1bits.CLRASAM = 1; //Stop conversion when 1st A/D converter interrupt is generated and clears ASAM bit automatically
-    AD1CON1bits.FORM = 0; // Integer 16 bit output format
-    AD1CON2bits.VCFG = 0; // VR+=AVdd; VR-=AVss
-    AD1CON2bits.SMPI = 0; // Number (+1) of consecutive conversions, stored in ADC1BUF0...ADCBUF{SMPI}
-    AD1CON3bits.ADRC = 1; // ADC uses internal RC clock
-    AD1CON3bits.SAMC = 16; // Sample time is 16TAD ( TAD = 100ns)
-    // Set AN0 as input
-    AD1CHSbits.CH0SA = 0; // Select AN0 as input for A/D converter
-    TRISBbits.TRISB0 = 1; // Set AN0 to input mode
-    AD1PCFGbits.PCFG0 = 0; // Set AN0 to analog mode
-    // Enable module
-    AD1CON1bits.ON = 1; // Enable A/D module (This must be the ***last instruction of configuration phase***)
-
     
     /* Welcome message*/
     printf("\n\n *********************************************\n\r");
     printf("Starting FreeRTOS Demo\n\r");
     printf("*********************************************\n\r");
     
-    xQueue1 = xQueueCreate(10, sizeof(int));
-    xQueue2 = xQueueCreate(10, sizeof(xMessage));
-    
+  
     /* Create the tasks defined within this file. */
-    xTaskCreate(taskACQ, ( const signed char * const ) "ACQ", configMINIMAL_STACK_SIZE, NULL, ACQ_PRIORITY, NULL);
-    xTaskCreate(taskProc, ( const signed char * const ) "Proc", configMINIMAL_STACK_SIZE, NULL, PROC_PRIORITY, NULL);
-    xTaskCreate(taskOut, ( const signed char * const ) "Out", configMINIMAL_STACK_SIZE, NULL, OUT_PRIORITY, NULL);
+    xTaskCreate(pvLedFlash, ( const signed char * const ) "A", configMINIMAL_STACK_SIZE, NULL, PRIORITY_A, NULL);
+   
+    xTaskCreate(pvLedFlash, ( const signed char * const ) "B", configMINIMAL_STACK_SIZE, NULL, PRIORITY_B, NULL);
+    xTaskCreate(pvLedFlash, ( const signed char * const ) "C", configMINIMAL_STACK_SIZE, NULL, PRIORITY_C, NULL);
+    xTaskCreate(pvLedFlash, ( const signed char * const ) "D", configMINIMAL_STACK_SIZE, NULL, PRIORITY_D, NULL);
+    xTaskCreate(pvLedFlash, ( const signed char * const ) "E", configMINIMAL_STACK_SIZE, NULL, PRIORITY_E, NULL);
+    xTaskCreate(pvInterfTask, ( const signed char * const ) "F", configMINIMAL_STACK_SIZE, NULL, PRIORITY_F, NULL);
     
     /* Finally start the scheduler. */
 	vTaskStartScheduler();
