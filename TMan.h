@@ -12,7 +12,7 @@
 void TMAN_Init(void);
 void TMAN_Close(void);
 void TMAN_TaskAdd(void);
-void TMAN_TaskRegisterAttributes(void);
+void TMAN_TaskRegisterAttributes(RTIME period, phase, deadline, precedence,constraints);
 void TMAN_TaskWaitPeriod(void);
 void TMAN_TaskStats(void);
 

@@ -63,12 +63,13 @@ void pvLedFlash(void *pvParam)                  // TaskHandle_1
     const TickType_t freq = pdMS_TO_TICKS(LED_FLASH_PERIOD_MS);
     
     for(;;) {
-        
-        PORTAbits.RA3 = !PORTAbits.RA3;
-        sprintf(mesg,"Task LedFlash (job %d)\n\r",iTaskTicks++);
-        PrintStr(mesg);
-                
-        vTaskDelayUntil( &xLastWakeTime, freq);
+        TMAN_TaskWaitPeriod(args ?); // Add args if needed
+        GET_TICKS
+        print ?Task Name? and ?Ticks?
+        for(i=0; i<IMAXCOUNT; i++)
+        for(j=0; j<JMAXCOUNT; j++)
+        do_some_computation_to_consume_time;
+        OTHER_STUFF (if needed)
     }
     
 }

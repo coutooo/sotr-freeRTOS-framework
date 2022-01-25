@@ -9,9 +9,8 @@
             <file>file:/C:/E/Dev/FreeRTOS/WorkingCopy/FreeRTOS/Demo/PIC32MX_MPLAB/main_full.c</file>
         </group>
         <group>
-            <file>file:/home/rodrigo/Documents/SOTR/FreeRTOSv202111.00/FreeRTOS/Demo/sotr-freeRTOS-framework/TMan.h</file>
-            <file>file:/home/rodrigo/Documents/SOTR/FreeRTOSv202111.00/FreeRTOS/Demo/sotr-freeRTOS-framework/mainTaskManager.c</file>
-            <file>file:/home/rodrigo/Documents/SOTR/FreeRTOSv202111.00/FreeRTOS/Demo/sotr-freeRTOS-framework/TMan.c</file>
+            <file>file:/home/couto/Desktop/Universidade/SOTR/tutorial3/FreeRTOSv202111.00/FreeRTOS/Demo/sotr-freeRTOS-framework/main.c</file>
+            <file>file:/home/couto/Desktop/Universidade/SOTR/tutorial3/FreeRTOSv202111.00/FreeRTOS/Demo/sotr-freeRTOS-framework/mainTaskManager.c</file>
         </group>
     </open-files>
 </project-private>
