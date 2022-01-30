@@ -101,7 +101,7 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assembleWithPreprocess
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/332309696/port_asm.o: ../../../Source/portable/MPLAB/PIC32MX/port_asm.S  .generated_files/flags/USB-II_STARTER_KIT/e95d9dcb426611dcd60ff5453503a12d78607e06 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/332309696/port_asm.o: ../../../Source/portable/MPLAB/PIC32MX/port_asm.S  .generated_files/flags/USB-II_STARTER_KIT/9b86f4d39fe2b3ad240ad1c086b0ef76fe9155b1 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/332309696" 
 	@${RM} ${OBJECTDIR}/_ext/332309696/port_asm.o.d 
 	@${RM} ${OBJECTDIR}/_ext/332309696/port_asm.o 
@@ -110,7 +110,7 @@ ${OBJECTDIR}/_ext/332309696/port_asm.o: ../../../Source/portable/MPLAB/PIC32MX/p
 	@${FIXDEPS} "${OBJECTDIR}/_ext/332309696/port_asm.o.d" "${OBJECTDIR}/_ext/332309696/port_asm.o.asm.d" -t $(SILENT) -rsi ${MP_CC_DIR}../ 
 	
 else
-${OBJECTDIR}/_ext/332309696/port_asm.o: ../../../Source/portable/MPLAB/PIC32MX/port_asm.S  .generated_files/flags/USB-II_STARTER_KIT/7a3d782e086439e9d0ce69de93194cc8375eb16b .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/332309696/port_asm.o: ../../../Source/portable/MPLAB/PIC32MX/port_asm.S  .generated_files/flags/USB-II_STARTER_KIT/d0ee533b110e75ea8520321697273576ed1afe50 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/332309696" 
 	@${RM} ${OBJECTDIR}/_ext/332309696/port_asm.o.d 
 	@${RM} ${OBJECTDIR}/_ext/332309696/port_asm.o 
@@ -123,134 +123,134 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/332309696/port.o: ../../../Source/portable/MPLAB/PIC32MX/port.c  .generated_files/flags/USB-II_STARTER_KIT/e4394646b79e5dd0670587f608e82e48e6b2e436 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/332309696/port.o: ../../../Source/portable/MPLAB/PIC32MX/port.c  .generated_files/flags/USB-II_STARTER_KIT/7abddc8b194a12140161953655ae29b89b7c2561 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/332309696" 
 	@${RM} ${OBJECTDIR}/_ext/332309696/port.o.d 
 	@${RM} ${OBJECTDIR}/_ext/332309696/port.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/332309696/port.o.d" -o ${OBJECTDIR}/_ext/332309696/port.o ../../../Source/portable/MPLAB/PIC32MX/port.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/449926602/queue.o: ../../../Source/queue.c  .generated_files/flags/USB-II_STARTER_KIT/d2270f891d6a07649dd2e5ea5c4ff228e654cdc6 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/449926602/queue.o: ../../../Source/queue.c  .generated_files/flags/USB-II_STARTER_KIT/5d52c12f79bb5595a8cd2c01dff3c14818455800 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/449926602" 
 	@${RM} ${OBJECTDIR}/_ext/449926602/queue.o.d 
 	@${RM} ${OBJECTDIR}/_ext/449926602/queue.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/449926602/queue.o.d" -o ${OBJECTDIR}/_ext/449926602/queue.o ../../../Source/queue.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/449926602/tasks.o: ../../../Source/tasks.c  .generated_files/flags/USB-II_STARTER_KIT/813f91e4d7f4b6efa4834d1111fda204209358da .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/449926602/tasks.o: ../../../Source/tasks.c  .generated_files/flags/USB-II_STARTER_KIT/35db85c71bf51f9b7437cb647099e00b60b7b023 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/449926602" 
 	@${RM} ${OBJECTDIR}/_ext/449926602/tasks.o.d 
 	@${RM} ${OBJECTDIR}/_ext/449926602/tasks.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/449926602/tasks.o.d" -o ${OBJECTDIR}/_ext/449926602/tasks.o ../../../Source/tasks.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/449926602/list.o: ../../../Source/list.c  .generated_files/flags/USB-II_STARTER_KIT/f8eae6df819d673068f85ed662d54c6bacc6fb61 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/449926602/list.o: ../../../Source/list.c  .generated_files/flags/USB-II_STARTER_KIT/de221546890c981793fa245388c356445f9e8472 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/449926602" 
 	@${RM} ${OBJECTDIR}/_ext/449926602/list.o.d 
 	@${RM} ${OBJECTDIR}/_ext/449926602/list.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/449926602/list.o.d" -o ${OBJECTDIR}/_ext/449926602/list.o ../../../Source/list.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/449926602/timers.o: ../../../Source/timers.c  .generated_files/flags/USB-II_STARTER_KIT/aa778cf226dec7cec94546292b8542b408c65238 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/449926602/timers.o: ../../../Source/timers.c  .generated_files/flags/USB-II_STARTER_KIT/3ca4c331308b4e60e44b2db437d3f57ba28fe0cf .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/449926602" 
 	@${RM} ${OBJECTDIR}/_ext/449926602/timers.o.d 
 	@${RM} ${OBJECTDIR}/_ext/449926602/timers.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/449926602/timers.o.d" -o ${OBJECTDIR}/_ext/449926602/timers.o ../../../Source/timers.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1884096877/heap_4.o: ../../../Source/portable/MemMang/heap_4.c  .generated_files/flags/USB-II_STARTER_KIT/8f5a8e675e624f57831812f896cc9a53d7960117 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1884096877/heap_4.o: ../../../Source/portable/MemMang/heap_4.c  .generated_files/flags/USB-II_STARTER_KIT/5fefdab5153cc45c6cfd3d3c5aca8d13479efd70 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1884096877" 
 	@${RM} ${OBJECTDIR}/_ext/1884096877/heap_4.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1884096877/heap_4.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1884096877/heap_4.o.d" -o ${OBJECTDIR}/_ext/1884096877/heap_4.o ../../../Source/portable/MemMang/heap_4.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1852901230/uart.o: ../../UART/uart.c  .generated_files/flags/USB-II_STARTER_KIT/364088d516342437f30f08d6e77b0d7cb91474e2 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1852901230/uart.o: ../../UART/uart.c  .generated_files/flags/USB-II_STARTER_KIT/ecd242491db5d2acb8a9743be266dc5f8c8b6b5f .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1852901230" 
 	@${RM} ${OBJECTDIR}/_ext/1852901230/uart.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1852901230/uart.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1852901230/uart.o.d" -o ${OBJECTDIR}/_ext/1852901230/uart.o ../../UART/uart.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1472/mainTaskManager.o: ../mainTaskManager.c  .generated_files/flags/USB-II_STARTER_KIT/8f43284dcd4eac06b266b30a9f5e5ebaf8a4a246 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1472/mainTaskManager.o: ../mainTaskManager.c  .generated_files/flags/USB-II_STARTER_KIT/1ff2806a1bba6f881db6fd23ff2c647a5032fb71 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/mainTaskManager.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/mainTaskManager.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1472/mainTaskManager.o.d" -o ${OBJECTDIR}/_ext/1472/mainTaskManager.o ../mainTaskManager.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1472/main.o: ../main.c  .generated_files/flags/USB-II_STARTER_KIT/698f3ca4701b524fd9b9d9b4df170012cc1fc726 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1472/main.o: ../main.c  .generated_files/flags/USB-II_STARTER_KIT/8c4c8604b77b8cb0ee6b0aa3e0dcb144df0307e8 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/main.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/main.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1472/main.o.d" -o ${OBJECTDIR}/_ext/1472/main.o ../main.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1472/ConfigPerformance.o: ../ConfigPerformance.c  .generated_files/flags/USB-II_STARTER_KIT/7007e957f44ad56e76ba8ab5e1cd08e82055d5d4 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1472/ConfigPerformance.o: ../ConfigPerformance.c  .generated_files/flags/USB-II_STARTER_KIT/cef56e09c369dc0dc00b7c972bc9db5cfec32ce5 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/ConfigPerformance.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/ConfigPerformance.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1472/ConfigPerformance.o.d" -o ${OBJECTDIR}/_ext/1472/ConfigPerformance.o ../ConfigPerformance.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1472/TMan.o: ../TMan.c  .generated_files/flags/USB-II_STARTER_KIT/a8f006e7459975d9af4e7ab981e261a474481ca .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1472/TMan.o: ../TMan.c  .generated_files/flags/USB-II_STARTER_KIT/2081753120fc992020acf5646fd23cc58d84277 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/TMan.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/TMan.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1472/TMan.o.d" -o ${OBJECTDIR}/_ext/1472/TMan.o ../TMan.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
 else
-${OBJECTDIR}/_ext/332309696/port.o: ../../../Source/portable/MPLAB/PIC32MX/port.c  .generated_files/flags/USB-II_STARTER_KIT/dbba3b79276a0238f61ab9bb5180a6210e367d71 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/332309696/port.o: ../../../Source/portable/MPLAB/PIC32MX/port.c  .generated_files/flags/USB-II_STARTER_KIT/df822823ab82b282069aaecf0f0320b261c6107d .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/332309696" 
 	@${RM} ${OBJECTDIR}/_ext/332309696/port.o.d 
 	@${RM} ${OBJECTDIR}/_ext/332309696/port.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/332309696/port.o.d" -o ${OBJECTDIR}/_ext/332309696/port.o ../../../Source/portable/MPLAB/PIC32MX/port.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/449926602/queue.o: ../../../Source/queue.c  .generated_files/flags/USB-II_STARTER_KIT/f5151b8274b15ad3f24c50efa2b5a7d2d072fba8 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/449926602/queue.o: ../../../Source/queue.c  .generated_files/flags/USB-II_STARTER_KIT/2e1ed76f6231f22816d86b46b2e153a3765c082 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/449926602" 
 	@${RM} ${OBJECTDIR}/_ext/449926602/queue.o.d 
 	@${RM} ${OBJECTDIR}/_ext/449926602/queue.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/449926602/queue.o.d" -o ${OBJECTDIR}/_ext/449926602/queue.o ../../../Source/queue.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/449926602/tasks.o: ../../../Source/tasks.c  .generated_files/flags/USB-II_STARTER_KIT/36f18db9914e57cd9d562145966972b3d7647d36 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/449926602/tasks.o: ../../../Source/tasks.c  .generated_files/flags/USB-II_STARTER_KIT/b92cec3ad82529072e9ccc85ebf1da3a47b16414 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/449926602" 
 	@${RM} ${OBJECTDIR}/_ext/449926602/tasks.o.d 
 	@${RM} ${OBJECTDIR}/_ext/449926602/tasks.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/449926602/tasks.o.d" -o ${OBJECTDIR}/_ext/449926602/tasks.o ../../../Source/tasks.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/449926602/list.o: ../../../Source/list.c  .generated_files/flags/USB-II_STARTER_KIT/cf861f07e7f701e2a049d8f7989a76904a63ae4 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/449926602/list.o: ../../../Source/list.c  .generated_files/flags/USB-II_STARTER_KIT/70bd9b764ff1e66300bbe87fe7f5a94bb89b1de6 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/449926602" 
 	@${RM} ${OBJECTDIR}/_ext/449926602/list.o.d 
 	@${RM} ${OBJECTDIR}/_ext/449926602/list.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/449926602/list.o.d" -o ${OBJECTDIR}/_ext/449926602/list.o ../../../Source/list.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/449926602/timers.o: ../../../Source/timers.c  .generated_files/flags/USB-II_STARTER_KIT/6e34bef5464dbe8e5bfc6a2f042f8b6c5703e7e2 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/449926602/timers.o: ../../../Source/timers.c  .generated_files/flags/USB-II_STARTER_KIT/e97749d374a7b41e76f07dba6d68802d368577a .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/449926602" 
 	@${RM} ${OBJECTDIR}/_ext/449926602/timers.o.d 
 	@${RM} ${OBJECTDIR}/_ext/449926602/timers.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/449926602/timers.o.d" -o ${OBJECTDIR}/_ext/449926602/timers.o ../../../Source/timers.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1884096877/heap_4.o: ../../../Source/portable/MemMang/heap_4.c  .generated_files/flags/USB-II_STARTER_KIT/c97b5ff8d6c17c6c47bbb76a3000bf83bd9b50b .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1884096877/heap_4.o: ../../../Source/portable/MemMang/heap_4.c  .generated_files/flags/USB-II_STARTER_KIT/15529335ddb74a25e4de96dd5e415f7b6122ce49 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1884096877" 
 	@${RM} ${OBJECTDIR}/_ext/1884096877/heap_4.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1884096877/heap_4.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1884096877/heap_4.o.d" -o ${OBJECTDIR}/_ext/1884096877/heap_4.o ../../../Source/portable/MemMang/heap_4.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1852901230/uart.o: ../../UART/uart.c  .generated_files/flags/USB-II_STARTER_KIT/513fa1c1038de1de324583f89f7119e78bad1f69 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1852901230/uart.o: ../../UART/uart.c  .generated_files/flags/USB-II_STARTER_KIT/80f37b0ad40e475fef1aa793e9bd802f218a5978 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1852901230" 
 	@${RM} ${OBJECTDIR}/_ext/1852901230/uart.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1852901230/uart.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1852901230/uart.o.d" -o ${OBJECTDIR}/_ext/1852901230/uart.o ../../UART/uart.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1472/mainTaskManager.o: ../mainTaskManager.c  .generated_files/flags/USB-II_STARTER_KIT/172cc2b731d54ca882f6751dca5e0b06c3a786d0 .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1472/mainTaskManager.o: ../mainTaskManager.c  .generated_files/flags/USB-II_STARTER_KIT/18bc1e63bc1968a734b7b2900f3fdf81c11b1155 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/mainTaskManager.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/mainTaskManager.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1472/mainTaskManager.o.d" -o ${OBJECTDIR}/_ext/1472/mainTaskManager.o ../mainTaskManager.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1472/main.o: ../main.c  .generated_files/flags/USB-II_STARTER_KIT/f48e24cbeb22d7fa8a9f29c5f827ebe65b560f9a .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1472/main.o: ../main.c  .generated_files/flags/USB-II_STARTER_KIT/9557ab9e4222a292a92f16ca7b49435bcd7c60b5 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/main.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/main.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1472/main.o.d" -o ${OBJECTDIR}/_ext/1472/main.o ../main.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1472/ConfigPerformance.o: ../ConfigPerformance.c  .generated_files/flags/USB-II_STARTER_KIT/483445f3b0bd49d17b5e07680c0f23a65136070c .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1472/ConfigPerformance.o: ../ConfigPerformance.c  .generated_files/flags/USB-II_STARTER_KIT/6892b6b7258a6e1c8da64f392b629c1c0297e343 .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/ConfigPerformance.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/ConfigPerformance.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -DPIC32_STARTER_KIT -D_SUPPRESS_PLIB_WARNING -D_DISABLE_OPENADC10_CONFIGPORT_WARNING -MP -MMD -MF "${OBJECTDIR}/_ext/1472/ConfigPerformance.o.d" -o ${OBJECTDIR}/_ext/1472/ConfigPerformance.o ../ConfigPerformance.c    -DXPRJ_USB-II_STARTER_KIT=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -I ../../../Source/include -I ../../../Source/portable/MPLAB/PIC32MX -I ../../Common/include -I ../ -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1472/TMan.o: ../TMan.c  .generated_files/flags/USB-II_STARTER_KIT/9cf3df8ace9b3284411a9605c1680cdab851361c .generated_files/flags/USB-II_STARTER_KIT/dd3623c89e4677f90469d78ff507bf2f23022ec
+${OBJECTDIR}/_ext/1472/TMan.o: ../TMan.c  .generated_files/flags/USB-II_STARTER_KIT/bbbfc7413aff239abe51faeea281b9445c49b8ff .generated_files/flags/USB-II_STARTER_KIT/71f6bc0335f35878b985de55acf6a86690a38f60
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
 	@${RM} ${OBJECTDIR}/_ext/1472/TMan.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1472/TMan.o 
