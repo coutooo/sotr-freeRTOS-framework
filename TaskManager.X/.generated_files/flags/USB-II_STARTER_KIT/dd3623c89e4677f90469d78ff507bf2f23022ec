@@ -34,4 +34,4 @@ MP_AS_DIR="/opt/microchip/xc32/v3.01/bin"
 MP_LD_DIR="/opt/microchip/xc32/v3.01/bin"
 MP_AR_DIR="/opt/microchip/xc32/v3.01/bin"
 # MP_BC_DIR is not defined
-DFP_DIR=/home/rodrigo/.mchp_packs/Microchip/PIC32MX_DFP/1.2.228
+DFP_DIR=/opt/microchip/mplabx/v5.50/packs/Microchip/PIC32MX_DFP/1.5.259

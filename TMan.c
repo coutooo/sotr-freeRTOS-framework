@@ -8,19 +8,20 @@
 /* App includes */
 #include "../UART/uart.h"
 
-#define PRIORITY_HANDLER 99
 
 typedef struct _Task 
 {
     char* name;
     int id;
     int period;
+    int activationtime;         // proxima ativacao
+    int deadline_time;
     int deadline;
-    char* precedence;
-    int constraints;
-    int phase;
+    char* precedence;             // se vier N == NONE
+    char* precedence_done;
+    int phase;                  // kinda offset
     int nactivations;          // n de activacoes
-    int nmiss;                 // n de deadline misses
+    int nmiss;                 // n de deadline misses   se passar deadlines falhou// começar ou acabar depois do deadline ou nao começar 
     TickType_t xLastExecutionTime;
     int status;                         // 0 - Ready, 1 - Running, 2 - Suspended 
     TaskHandle_t handle;
@@ -29,10 +30,10 @@ typedef struct _Task
 
 Task* taskList;
 int nTasks, globalTicks;
+int tickTMan=0;
 
-void TMAN_Init(TaskHandle_t handler, int ticks)
+void TMAN_Init(int ticks)
 {
-    PrintStr("INIT");
     //void * pvPortMalloc( size_t xWantedSize ) // alocar memória da heap
     taskList = (Task*) pvPortMalloc(sizeof(Task)*16);
     globalTicks = ticks;
@@ -42,34 +43,33 @@ void TMAN_Init(TaskHandle_t handler, int ticks)
 
 void pvTickHandler(void *pvParam)                  
 {
-    const TickType_t period = globalTicks/portTICK_RATE_MS;
-    int maxPrio;
-    int idxAux = 0;
+    // perco tasks e ve os estados
+    const TickType_t periodoo = globalTicks * portTICK_RATE_MS;
+    
+// divisao do tick com o perido == phase
     for(;;)
     {
-        maxPrio = 0;
-        for (int i = 0; i < (sizeof(taskList)/sizeof(taskList[0])); i++){
-            if(taskList[i].status == 1){
-                continue;
-            } else if(taskList[i].status == 0){
-                if (taskList[i].prioridade > maxPrio){
-                    //taskList[i]->status = 1;
-                    idxAux = i;
-                } else {
-                    
-                }
-            }   
+        for(int i = 0; i<nTasks;i++)
+        {
+            if(taskList[i].status == 1) continue;
+            if(taskList[i].status == 2)// && taskList[i].activationtime < tickTMan)       // ve se esta suspendida e pronta para ativar
+            {   
+                taskList[i].deadline_time = tickTMan + taskList[i].deadline;   // calcurar proxima deadline.
+                taskList[i].status = 0;       // fica ready
+
+            }
+            if(taskList[i].status == 0 && taskList[i].precedence_done == 1)        // se tiver ready
+            {
+                taskList[i].nactivations++;
+                taskList[i].activationtime = tickTMan + taskList[i].period+ taskList[i].phase;   // calcula tempo de execucao
+                taskList[i].status = 1;         // fica running
+                vTaskResume(taskList[i].handle);    // meter a correr
+            }
         }
-        vTaskResume(taskList[idxAux].handle);
-        vTaskDelay(period);
+        vTaskDelay(periodoo);
+        tickTMan++;
     }
 }
-
-//int TManTicks()
-//{
-//    int ticks = xTaskGetTickCount();
-//    return ticks*5;
-//}
 
 void TMAN_Close()
 {
@@ -90,11 +90,21 @@ int TMAN_TaskAdd(const signed char * name)
     Task task;
     TaskHandle_t xTask;
     
+    xTask = xTaskGetHandle(name);
     task.status = 0;
     task.name = name;
     task.handle = xTask;
-    //taskList[nTasks] = task;
+    task.activationtime = 0;
+    task.nactivations = 0;
+    task.nmiss = 0;
+    taskList[nTasks] = task;
     nTasks++;
+    
+    uint8_t msg[80];
+    
+    sprintf(msg, "Task %s added\n\r", name);
+    PrintStr(msg);
+    
     return 1;
 }
 
@@ -102,22 +112,34 @@ Task* TMAN_GetTask(const signed char * name)
 {
 //    Task* task;
 //    task->handle = xTaskGetHandle(name);
-    for (int i=0; i < (sizeof(taskList)/sizeof(taskList[0])); i++){
+    for (int i=0; i < nTasks; i++){
         if (strcmp(taskList[i].name, name) == 0){
             return &taskList[i];
         }
     }
 }
 
-void TMAN_TaskRegisterAttributes(const signed char* name, int period)
+void TMAN_TaskRegisterAttributes(const signed char* name, int period,int phase,int deadline,const signed char* precedence)
 {
     // especificar a periocidade da task
     Task* task = TMAN_GetTask(name);
+    
     task->period = period;
-    //task->phase = phase;
-    //task->deadline = deadline;
-    //task->precedence = precedence;
-    //task->constraints = constraints;
+    
+    task->phase = phase;
+    
+    task->deadline = deadline;
+    
+    task->deadline_time = deadline;
+    
+    task->precedence = precedence;
+    
+    const signed char* None = "N";
+    
+    if(strcmp(precedence, None) == 0)
+    {
+        task->precedence_done = 1;
+    }
 }
 
 void TMAN_TaskWaitPeriod(const signed char* name)
@@ -132,15 +154,47 @@ void TMAN_TaskWaitPeriod(const signed char* name)
 //        // verificar o estado das tasks
 //        
 //    }
+    //  tempo-tempo exec > deadline       dead miss ++    vtaskSuspend
+    
     Task* task = TMAN_GetTask(name); 
-    if(task->status == 1){
-        vTaskSuspend(task->handle);
-    }  
+
+    const signed char* None = "N";
+    
+    if(tickTMan++ >= task->activationtime)
+    {
+        for(int i = 0; i<nTasks;i++)
+        {
+            if(strcmp(taskList[i].precedence, name) == 0)
+            {
+                taskList[i].precedence_done = 1;
+            }
+        }
+           //    char* precedence;             // se vier N == NONE
+            //char* precedence_done;
+        if(tickTMan > task->deadline_time)
+        {
+            task->nmiss++;
+        }
+    
+        if(strcmp(task->precedence, None) == 0)
+        {
+            task->precedence_done = 1;
+        }
+        else
+        {
+            task->precedence_done = 0;
+        }
+        TMAN_TaskStats(name);       // printar estatisticas
+        task->status = 2;           // fica suspended no status
+        vTaskSuspend(task->handle); // suspend  
+    }
 }
     //semaforos?
     //ver sem prioridades so se elas ja estao ready ou nao
 
-int TMAN_TaskStats(Task task)
+void TMAN_TaskStats(const signed char* name)
 {
-    return task.nactivations;   // falta nmisses
+    Task* task = TMAN_GetTask(name);
+    printf("\nNumber of Activations of task %s: %d\n\r",name,task->nactivations);
+    printf("\nNumber of Deadline Misses of task %s: %d\n\r",name,task->nmiss);
 }

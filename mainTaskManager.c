@@ -57,64 +57,32 @@
 
 void taskBody(void *pvParam)                  
 {
-    int iTaskTicks = 0;
-    uint8_t mesg[80];
+    uint8_t msg[80];
+
+    const signed char * name = (char*) pvParam;
     
     TickType_t xLastWakeTime;
     xLastWakeTime = xTaskGetTickCount();
-    //const TickType_t freq = pdMS_TO_TICKS(LED_FLASH_PERIOD_MS);
     
-    const signed char name = (char*) pvParam;
     
     for(;;) {
         TMAN_TaskWaitPeriod(name); // Add args if needed
-        //GET_TICKS
-        sprintf("%s, %d\n", name, xLastWakeTime);   //print ?Task Name? and ?Ticks?
-        for(int i=0; i<50000; i++) {
-            for(int j=0; j<50000; j++){
-                //do_some_computation_to_consume_time;
-            }
-        }   
-                
-        //OTHER_STUFF (if needed)
+        sprintf(msg,"%s, %d\n\r", name,xTaskGetTickCount() ); 
+        PrintStr(msg);
+        for(int i=0; i<5; i++) {
+             for(int j=0; j<18; j++){
+                 //do_some_computation_to_consume_time;
+             }
+         }   
     }
     
 }
-
-void pvInterfTask(void *pvParam)               
-{
-    
-//    volatile uint32_t counter1, counter2;
-//    float x=100.1;
-//    
-//    TickType_t xLastWakeTime;
-//    xLastWakeTime = xTaskGetTickCount();
-//    const TickType_t freq = pdMS_TO_TICKS(INTERF_PERIOD_MS);
-//   
-//    for(;;) {
-//        
-//        PORTCbits.RC1 = 1;        
-//        PrintStr("Interfering task release ...");
-//        
-//        /* Workload. In this case just spend CPU time ...*/        
-//        for(counter1=0; counter1 < INTERF_WORKLOAD; counter1++ )
-//            for(counter2=0; counter2 < 0x10200; counter2++ )
-//            x=x/3;                
-//
-//        PrintStr("and termination!\n\r");
-//        PORTCbits.RC1 = 0;        
-//        
-//        vTaskDelayUntil( &xLastWakeTime, freq);
-//    }
-    
-}
-
 /*
  * Create the demo tasks then start the scheduler.
  */
 int mainTaskManager( void )
 {
-    TaskHandle_t handler = NULL;
+    int t = 1000;
     // Init UART and redirect stdin/stdot/stderr to UART
     if(UartInit(configPERIPHERAL_CLOCK_HZ, 115200) != UART_SUCCESS) {
         PORTAbits.RA3 = 1; // If Led active error initializing UART
@@ -126,22 +94,37 @@ int mainTaskManager( void )
     
     /* Welcome message*/
     printf("\n *********************************************\n\r");
-    printf("Starting TaskManager \n");
+    printf("Starting TaskManager crl\n");
     printf("*********************************************\n\r");
     
-    xTaskCreate(pvTickHandler, ( const signed char * const ) "Tick Handler", configMINIMAL_STACK_SIZE, NULL, PRIORITY_HANDLER, &handler);
-    TMAN_Init(handler,1000);
+    xTaskCreate(pvTickHandler, ( const signed char * const ) "TickHandler", configMINIMAL_STACK_SIZE, NULL, PRIORITY_A-1, NULL);
+    
+    TMAN_Init(t);
     
     /* Create the tasks defined within this file. */
     xTaskCreate(taskBody, ( const signed char * const ) "A", configMINIMAL_STACK_SIZE, (void*) "A", PRIORITY_A, NULL);
     TMAN_TaskAdd("A");
-    TMAN_TaskRegisterAttributes("A", 5);
+    TMAN_TaskRegisterAttributes("A", 5,0,10,"N");        // nome,periodo,phase, deadline, precedence constraints   N = NONE  
     
-//    xTaskCreate(taskBody, ( const signed char * const ) "B", configMINIMAL_STACK_SIZE, NULL, PRIORITY_B, NULL);
-//    xTaskCreate(taskBody, ( const signed char * const ) "C", configMINIMAL_STACK_SIZE, NULL, PRIORITY_C, NULL);
-//    xTaskCreate(taskBody, ( const signed char * const ) "D", configMINIMAL_STACK_SIZE, NULL, PRIORITY_D, NULL);
-//    xTaskCreate(taskBody, ( const signed char * const ) "E", configMINIMAL_STACK_SIZE, NULL, PRIORITY_E, NULL);
-//    xTaskCreate(pvInterfTask, ( const signed char * const ) "F", configMINIMAL_STACK_SIZE, NULL, PRIORITY_F, NULL);
+    xTaskCreate(taskBody, ( const signed char * const ) "B", configMINIMAL_STACK_SIZE, (void*) "B", PRIORITY_B, NULL);
+    TMAN_TaskAdd("B");
+    TMAN_TaskRegisterAttributes("B", 10,3,14,"A");
+    
+    xTaskCreate(taskBody, ( const signed char * const ) "C", configMINIMAL_STACK_SIZE, (void*) "C", PRIORITY_C, NULL);
+    TMAN_TaskAdd("C");
+    TMAN_TaskRegisterAttributes("C", 6,1,5,"N");
+    
+    xTaskCreate(taskBody, ( const signed char * const ) "D", configMINIMAL_STACK_SIZE, (void*) "D", PRIORITY_D, NULL);
+    TMAN_TaskAdd("D");
+    TMAN_TaskRegisterAttributes("D", 4,0,10,"N");
+    
+    xTaskCreate(taskBody, ( const signed char * const ) "E", configMINIMAL_STACK_SIZE, (void*) "E", PRIORITY_E, NULL);
+    TMAN_TaskAdd("E");
+    TMAN_TaskRegisterAttributes("E", 8,0,20,"F");
+    
+    xTaskCreate(taskBody, ( const signed char * const ) "F", configMINIMAL_STACK_SIZE, (void*) "F", PRIORITY_F, NULL);
+    TMAN_TaskAdd("F");
+    TMAN_TaskRegisterAttributes("F", 10,6,30,"N");
     
     /* Finally start the scheduler. */
 	vTaskStartScheduler();
