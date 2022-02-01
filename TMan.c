@@ -44,16 +44,26 @@ void TMAN_Init(int ticks)
 void pvTickHandler(void *pvParam)                  
 {
     // perco tasks e ve os estados
-    const TickType_t periodoo = globalTicks * portTICK_RATE_MS;
+    const TickType_t periodoo = globalTicks / portTICK_RATE_MS;
+    
+    TickType_t xLastWakeTime;
+    xLastWakeTime = xTaskGetTickCount();
     
 // divisao do tick com o perido == phase
     for(;;)
     {
+        vTaskDelayUntil(&xLastWakeTime,periodoo);
+        tickTMan++;
         for(int i = 0; i<nTasks;i++)
         {
-            if(taskList[i].status == 1) continue;
+            if(tickTMan < taskList[i].phase) continue;
             if(taskList[i].status == 2)// && taskList[i].activationtime < tickTMan)       // ve se esta suspendida e pronta para ativar
-            {   
+            {
+                if(taskList[i].phase + taskList[i].deadline + (taskList[i].period * taskList[i].nactivations) < tickTMan )// && (taskList[i].status == 1))
+                {
+                    taskList[i].nmiss++;
+                }
+                TMAN_TaskStats(taskList[i].name);       // printar estatisticas
                 taskList[i].deadline_time = tickTMan + taskList[i].deadline;   // calcurar proxima deadline.
                 taskList[i].status = 0;       // fica ready
 
@@ -66,8 +76,7 @@ void pvTickHandler(void *pvParam)
                 vTaskResume(taskList[i].handle);    // meter a correr
             }
         }
-        vTaskDelay(periodoo);
-        tickTMan++;
+
     }
 }
 
@@ -140,6 +149,10 @@ void TMAN_TaskRegisterAttributes(const signed char* name, int period,int phase,i
     {
         task->precedence_done = 1;
     }
+    else
+    {
+        task->precedence_done = 0;
+    }
 }
 
 void TMAN_TaskWaitPeriod(const signed char* name)
@@ -155,39 +168,38 @@ void TMAN_TaskWaitPeriod(const signed char* name)
 //        
 //    }
     //  tempo-tempo exec > deadline       dead miss ++    vtaskSuspend
-    
+    //tickTMan++;
     Task* task = TMAN_GetTask(name); 
 
     const signed char* None = "N";
     
-    if(tickTMan++ >= task->activationtime)
+//    if(tickTMan++ >= task->activationtime)
+//    {
+    for(int i = 0; i<nTasks;i++)
     {
-        for(int i = 0; i<nTasks;i++)
+        if(strcmp(taskList[i].precedence, name) == 0)
         {
-            if(strcmp(taskList[i].precedence, name) == 0)
-            {
-                taskList[i].precedence_done = 1;
-            }
+            taskList[i].precedence_done = 1;
         }
-           //    char* precedence;             // se vier N == NONE
-            //char* precedence_done;
-        if(tickTMan > task->deadline_time)
-        {
-            task->nmiss++;
-        }
-    
-        if(strcmp(task->precedence, None) == 0)
-        {
-            task->precedence_done = 1;
-        }
-        else
-        {
-            task->precedence_done = 0;
-        }
-        TMAN_TaskStats(name);       // printar estatisticas
-        task->status = 2;           // fica suspended no status
-        vTaskSuspend(task->handle); // suspend  
     }
+       //    char* precedence;             // se vier N == NONE
+        //char* precedence_done;
+//    if(tickTMan > task->deadline_time)
+//    {
+//        task->nmiss++;
+//    }
+
+    if(strcmp(task->precedence, None) == 0)
+    {
+        task->precedence_done = 1;
+    }
+    else
+    {
+        task->precedence_done = 0;
+    }
+    task->status = 2;           // fica suspended no status
+    vTaskSuspend(task->handle); // suspend  
+  //  }
 }
     //semaforos?
     //ver sem prioridades so se elas ja estao ready ou nao
